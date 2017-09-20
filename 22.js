@@ -3,10 +3,25 @@
  * @return {string[]}
  */
 var generateParenthesis = function(n) {
-    let res = [];
-    let s=1;
-    s = s>>1
-    console.log(s.toString(2))
+    function work(l,r,str,res){
+        if(l==0&&r==0){
+            res.push(str);
+            return;
+        }
+        if(l>0){
+            let s = str + '(';
+            let t = l -1;
+            work(t,r,s,res);
+        }
+        if(r>l){
+            let s = str+')';
+            let t = r -1;
+            work(l,t,s,res);
+        }
+    }
+    let res=[];
+    work(n,n,'',res);
+    return res;
 };
 
-generateParenthesis(3);
+console.log(generateParenthesis(3));
