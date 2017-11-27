@@ -10,29 +10,47 @@
  * @return {ListNode}
  */
 var sortList = function(head) {
-    if(!head.next){
-        return head;
-    }
-    if(!head.next.next){
-        if(head.next.val < head.val){
-            [head.val, head.next.val] = [head.next.val, head.val];
-        }
-        return head;
-    }
-    let [i,j,k] = [head, head.next, head.next.next];
-    while(k){
-        if(k.val > i.val){
-            k = k.next;
-            continue;
-        }
-        if(j.val > i.val){
-            [k.val, j.val] = [k.val, i.val];
-            if(!k.next){
-                continue;
-            }
-        }
-        j = j.next;
-    }
-    [i.val, j.val] = [j.val, i.val];
-    sortList(head);
+    let mid = getMid(head);
+    let l1 = sortList(head);
+    let l2 = sortList(mid);
+    return mergeList(l1, l2);
 };
+
+function getMid(node){
+    if(!node){
+        return null;
+    }
+    let f = s = node;
+    while(f&&f.next&&f.next.next){
+        f = f.next.next;
+        s = s.next;
+    }
+    f = s.next;
+    s.next = null;
+    return f;
+}
+
+function mergeList(l1, l2){
+    let h = t = new ListNode(-1);
+    t = h.next;
+    while(true){
+        if(!l1){
+            t = l2;
+            break;
+        }
+        if(!l2){
+            t = l1;
+            break;
+        }
+        if(l1.val <= l2.val){
+            t = l1;
+            l1 = l1.next;
+            t = t.next;
+        }else{
+            t = l2;
+            l2 = l2.next;
+            t = t.next;
+        }
+    }
+    return h.next;
+}
