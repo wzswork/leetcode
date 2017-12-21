@@ -13,13 +13,11 @@ var findCircleNum = function(M) {
                 res.push(t);
             }
         }
-        console.log('res'+res);
         if(res.length>0){
             mapNum(M,res.shift());
         }
     }
     for(let n = 0; n < len; n++){
-        console.log(n+":"+M[n][n])
         if(M[n][n] == 1){
             mapNum(M,n);
             sum++

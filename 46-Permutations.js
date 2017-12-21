@@ -8,7 +8,7 @@ function generate(){
 }
 
 var permute = function(nums) {
-    ler res = [];
+    let res = [];
     for(let i = 0; i<nums.length; i++){
         res.push(nums[i])
     }
