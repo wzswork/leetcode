@@ -10,7 +10,7 @@ var isMatch = function (s, p) {
     let i = j = 0,
         slen = s.length,
         plen = p.length;
-    while (i < slen - 1 && j < plen - 1) {
+    while (i < slen&& j < plen) {
         if (p[j] == '*') {
             if (isEqual(s[i], p[j - 1])) {
                 i++
@@ -26,9 +26,12 @@ var isMatch = function (s, p) {
             return false;
         }
     }
-    if(s === slen && j >= plen - 1){
-        return true;
-    }else if(s < slen){
+    if(i === slen && j >= plen - 1){
+        if(p[j] == '*' || j == plen){
+            return true;
+        }
+        return false;
+    }else if(i < slen){
         return false;
     }else if(p[j] != '*'){
         return false;
@@ -55,4 +58,4 @@ isEqual = function(a, b){
     return false;
 }
 
-console.log(isMatch("cbccc","c*b*c*."))
+console.log(isMatch("aaa","aaaa"))
